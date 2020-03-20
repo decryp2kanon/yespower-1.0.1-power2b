@@ -186,8 +186,9 @@ int main(void)
 	print_yespower_loop(YESPOWER_0_5, "Client Key");
 	print_yespower_loop(YESPOWER_1_0, NULL);
 
-	print_yespower(YESPOWER_1_0, 2048, 32, "Satoshi Nakamoto 31/Oct/2008 Proof-of-work is essentially one-CPU-one-vote");
-	print_yespower(YESPOWER_1_0_BLAKE2B, 2048, 32, "Satoshi Nakamoto 31/Oct/2008 Proof-of-work is essentially one-CPU-one-vote");
+	print_yespower(YESPOWER_1_0, 2048, 32, "Satoshi Nakamoto 31/Oct/2008 Proof-of-work is essentially one-CPU-one-vote"); // SUGAR
+	print_yespower(YESPOWER_1_0_BLAKE2B, 2048, 32, "Satoshi Nakamoto 31/Oct/2008 Proof-of-work is essentially one-CPU-one-vote"); // TEST
+	print_yespower(YESPOWER_1_0_BLAKE2B, 2048, 32, "Now I am become Death, the destroyer of worlds"); // MBC
 
 	return 0;
 }
