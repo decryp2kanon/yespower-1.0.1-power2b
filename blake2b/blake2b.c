@@ -267,7 +267,7 @@ void hmac_blake2b_hash(void *out, const void *key, size_t keylen, const void *in
     hmac_blake2b_final(&hctx, out);
 }
 
-void pbkdf2_blake2b(const uint8_t * passwd, size_t passwdlen, const uint8_t * salt,
+void PBKDF2_BLAKE2B(const uint8_t * passwd, size_t passwdlen, const uint8_t * salt,
     size_t saltlen, uint64_t c, uint8_t * buf, size_t dkLen)
 {
     hmac_ctx PShctx, hctx;

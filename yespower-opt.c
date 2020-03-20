@@ -1110,11 +1110,7 @@ int yespower(yespower_local_t *local,
 		HMAC_SHA256_Buf(B + B_size - 64, 64,
 		    sha256, sizeof(sha256), (uint8_t *)dst);
 	} else { // blake2b
-    blake2b_ctx bctx;
-    blake2b_init(&bctx, 32, NULL, 0);
-    blake2b_update(&bctx, src, srclen);
-    blake2b_final(&bctx, sha256);
-    insecure_memzero(&bctx, sizeof(blake2b_ctx));
+    blake2b_hash(sha256, src, srclen);
 
     ctx.S2 = S + 2 * Swidth_to_Sbytes1(Swidth);
     ctx.w = 0;
@@ -1125,11 +1121,11 @@ int yespower(yespower_local_t *local,
     } else {
       srclen = 0;
     }
-    PBKDF2_SHA256(sha256, sizeof(sha256), src, srclen, 1, B, 128);
+    PBKDF2_BLAKE2B(sha256, sizeof(sha256), src, srclen, 1, B, 128);
     memcpy(sha256, B, sizeof(sha256));
     smix_1_0(B, r, N, V, XY, &ctx);
-    HMAC_SHA256_Buf(B + B_size - 64, 64,
-      sha256, sizeof(sha256), (uint8_t *)dst);
+    // HMAC_SHA256_Buf(B + B_size - 64, 64, sha256, sizeof(sha256), (uint8_t *)dst);
+    hmac_blake2b_hash((uint8_t *)dst, B + B_size - 64, 64, sha256, sizeof(sha256));
   }
 
 	/* Success! */
