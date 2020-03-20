@@ -28,7 +28,7 @@
 #ifdef TEST_PBKDF2_SHA256
 #include <assert.h>
 
-#include "sha256.h"
+// #include "sha256.h"
 
 static void print_PBKDF2_SHA256_raw(const char *passwd, size_t passwdlen,
     const char *salt, size_t saltlen, uint64_t c, size_t dkLen)

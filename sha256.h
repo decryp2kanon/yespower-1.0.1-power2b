@@ -41,7 +41,7 @@ extern "C" {
 #define SHA256_Init libcperciva_SHA256_Init
 #define SHA256_Update libcperciva_SHA256_Update
 #define SHA256_Final libcperciva_SHA256_Final
-#define SHA256_Buf libcperciva_SHA256_Buf
+// #define SHA256_Buf libcperciva_SHA256_Buf
 #define SHA256_CTX libcperciva_SHA256_CTX
 #define HMAC_SHA256_Init libcperciva_HMAC_SHA256_Init
 #define HMAC_SHA256_Update libcperciva_HMAC_SHA256_Update

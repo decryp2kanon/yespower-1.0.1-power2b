@@ -33,7 +33,7 @@
 
 #include "blake2b.h"
 #include "sph_types.h"
-#include "../sysendian.h"
+#include "sysendian.h"
 
 // Cyclic right rotation.
 #ifndef ROTR64
@@ -260,7 +260,7 @@ void hmac_blake2b_final(hmac_ctx *hctx, uint8_t *digest) {
 }
 
 // // keylen = number of bytes; inlen = number of bytes
-void hmac_blake2b_hash(void *out, const void *key, size_t keylen, const void *in, size_t inlen) {
+void HMAC_BLAKE2B_HASH(void *out, const void *key, size_t keylen, const void *in, size_t inlen) {
     hmac_ctx hctx;
     hmac_blake2b_init(&hctx, key, keylen);
     hmac_blake2b_update(&hctx, in, inlen);

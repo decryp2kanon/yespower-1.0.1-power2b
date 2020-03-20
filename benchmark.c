@@ -50,7 +50,7 @@ static uint64_t time_us(void)
 int main(int argc, const char * const *argv)
 {
 	yespower_params_t params = {
-		.version = YESPOWER_1_0,
+		.version = YESPOWER_1_0_BLAKE2B,
 		.N = 2048,
 		.r = 32,
 		.pers = (const uint8_t *)"Satoshi Nakamoto 31/Oct/2008 Proof-of-work is essentially one-CPU-one-vote",
@@ -80,7 +80,7 @@ int main(int argc, const char * const *argv)
 		src.u8[i] = i * 3;
 
 	if (yespower_tls(src.u8, sizeof(src), &params, &dst)) {
-		puts("FAILED");
+		puts("FAILED: if (yespower_tls(src.u8, sizeof(src), &params, &dst))");
 		return 1;
 	}
 
@@ -111,7 +111,7 @@ int main(int argc, const char * const *argv)
 #endif
 			src.u32[19] = seed + (count + i);
 			if (yespower_tls(src.u8, sizeof(src), &params, p)) {
-				puts("FAILED");
+				puts("FAILED: if (yespower_tls(src.u8, sizeof(src), &params, p))");
 				return 1;
 			}
 		}
@@ -190,7 +190,7 @@ int main(int argc, const char * const *argv)
 
 			if (yespower_tls(src.u8, sizeof(src), &params, &dst)) {
 #pragma omp critical
-				puts("FAILED");
+				puts("FAILED: omp critical");
 			}
 
 			uint64_t end1 = time_us();

@@ -32,7 +32,7 @@ OBJS_CORE = yespower-opt.o
 OBJS_COMMON = blake2b.o
 OBJS_TESTS = $(OBJS_CORE) $(OBJS_COMMON) tests.o
 OBJS_BENCHMARK = $(OBJS_CORE) $(OBJS_COMMON) benchmark.o
-OBJS_RM = yespower-*.o
+OBJS_RM = yespower-*.o blake2b*.o
 
 all: $(PROJ)
 

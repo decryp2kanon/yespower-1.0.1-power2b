@@ -95,7 +95,7 @@
 #include <string.h>
 
 #include "insecure_memzero.h"
-#include "sha256.h"
+// #include "sha256.h"
 #include "sysendian.h"
 
 #include "yespower.h"
@@ -1081,17 +1081,17 @@ int yespower(yespower_local_t *local,
 	// SHA256_Buf(src, srclen, sha256); // blake2b
 
 	if (version == YESPOWER_0_5) {
-		PBKDF2_SHA256(sha256, sizeof(sha256), src, srclen, 1,
+		PBKDF2_BLAKE2B(sha256, sizeof(sha256), src, srclen, 1,
 		    B, B_size);
 		memcpy(sha256, B, sizeof(sha256));
 		smix(B, r, N, V, XY, &ctx);
-		PBKDF2_SHA256(sha256, sizeof(sha256), B, B_size, 1,
+		PBKDF2_BLAKE2B(sha256, sizeof(sha256), B, B_size, 1,
 		    (uint8_t *)dst, sizeof(*dst));
 
 		if (pers) {
-			HMAC_SHA256_Buf(dst, sizeof(*dst), pers, perslen,
+			HMAC_BLAKE2B_HASH(dst, sizeof(*dst), pers, perslen,
 			    sha256);
-			SHA256_Buf(sha256, sizeof(sha256), (uint8_t *)dst);
+			blake2b_hash(sha256, sizeof(sha256), (uint8_t *)dst);
 		}
 	} else if (version == YESPOWER_1_0) {
 		ctx.S2 = S + 2 * Swidth_to_Sbytes1(Swidth);
@@ -1104,10 +1104,10 @@ int yespower(yespower_local_t *local,
 			srclen = 0;
 		}
 
-		PBKDF2_SHA256(sha256, sizeof(sha256), src, srclen, 1, B, 128);
+		PBKDF2_BLAKE2B(sha256, sizeof(sha256), src, srclen, 1, B, 128);
 		memcpy(sha256, B, sizeof(sha256));
 		smix_1_0(B, r, N, V, XY, &ctx);
-		HMAC_SHA256_Buf(B + B_size - 64, 64,
+		HMAC_BLAKE2B_HASH(B + B_size - 64, 64,
 		    sha256, sizeof(sha256), (uint8_t *)dst);
 	} else { // blake2b
     blake2b_hash(sha256, src, srclen);
@@ -1125,7 +1125,7 @@ int yespower(yespower_local_t *local,
     memcpy(sha256, B, sizeof(sha256));
     smix_1_0(B, r, N, V, XY, &ctx);
     // HMAC_SHA256_Buf(B + B_size - 64, 64, sha256, sizeof(sha256), (uint8_t *)dst);
-    hmac_blake2b_hash((uint8_t *)dst, B + B_size - 64, 64, sha256, sizeof(sha256));
+    HMAC_BLAKE2B_HASH((uint8_t *)dst, B + B_size - 64, 64, sha256, sizeof(sha256));
   }
 
 	/* Success! */
