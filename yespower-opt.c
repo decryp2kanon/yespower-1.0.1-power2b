@@ -1129,7 +1129,7 @@ int yespower(yespower_local_t *local,
 		}
 
 		pbkdf2_blake2b(blake2b, sizeof(blake2b), src, srclen, 1, B, 128);
-		memcpy(sha256, B, sizeof(blake2b));
+		memcpy(blake2b, B, sizeof(blake2b));
 		smix_1_0(B, r, N, V, XY, &ctx);
 		hmac_blake2b_hash((uint8_t *)dst, B + B_size - 64, 64, blake2b, sizeof(blake2b));
 	}
